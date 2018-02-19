@@ -5,6 +5,7 @@ CSCI201-01 | Dr. Gedare Bloom
 Assignment:
 (1) Print the following prompt message:
 Please enter a non-zero natural number less than 32,768:
+	After declaring a variable for the prompt string in our .data, we used a 	syscall to print that string out, prompting the user.
 (2) Read an integer from the user,
 (3) Repeat the above process (Step 1 and 2) five times.
 (4) Check whether or not all the five integers are larger than 0 and less than 32768. If not,

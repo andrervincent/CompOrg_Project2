@@ -5,12 +5,11 @@ CSCI201-01 | Dr. Gedare Bloom
 Assignment:
 (1) Print the following prompt message:
 Please enter a non-zero natural number less than 32,768:
-	After declaring a variable for the prompt string in our .data, we used a 	syscall to print that string out, prompting the user.
+	After declaring a variable for the prompt string in our .data, we used a syscall to print that string out, prompting the user.
 
 (2) Read an integer from the user
 	Syscall "5" is used to read integers from the user. The input is stored into the $v0 register.
-	We then check that the integer is within the range of 0-32768. If it is, then we store it at the
-	nth place of the array.
+	We then check that the integer is within the range of 0-32768. If it is, then we store it at the nth place of the array.
 
 (3) Repeat the above process (Step 1 and 2) five times.
 

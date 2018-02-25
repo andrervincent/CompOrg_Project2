@@ -1,6 +1,7 @@
 .data		        #variable declarations occur after this
 	prompt: 	
 	.asciiz 	" Please enter a non-zero natural number less than 32,768: "
+	
 	int_array:	
 	.space 24	#space for 5 integers in an array
 	

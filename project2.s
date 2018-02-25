@@ -14,7 +14,8 @@
 		li $v0, 4
 		la $a0, prompt		#syscall to output the declared string
 		syscall
-
+		
+		LOOP1:
 		li $v0, 5
 		syscall				#syscall to read in integers
 		

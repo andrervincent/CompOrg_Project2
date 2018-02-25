@@ -15,14 +15,16 @@
 		
 		move $t0, $v0		#puts user input into a register
 		sw $t0, 0($s1)		#stores integer at base address of the array
-
+		
+		#check that it's within the range
+		
 		
 		#store this integer at the nth place of the array
 		#check that the integer is within the range of 0-32768
 		#repeat for 4 more integers
 		
 		#CALCULATION SUBPROGRAM:
-		#load $t1-$t5(parameters) from the stack 
+		#use $a0-$a3 and integer from stack as parameters 
 		#multiply $t4 by $t5 		( D * E )
 		#move from lo in to $t6
 		#$t0 sub $t3 -$t6			C - (D * E)

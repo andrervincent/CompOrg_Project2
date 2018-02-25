@@ -1,10 +1,11 @@
 .data		#variable declarations occur after this
 	prompt: 	.asciiz 	" Please enter a non-zero natural number less than 32,768: "
-	int_array:	.space 4	#space for 5 integers in an array
+	int_array:	.space 24	#space for 5 integers in an array
 	.globl main
 .text		#program execution follows this
 	main:
-
+		la $s1, int_array	#loads array's space into a register
+		
 		li $v0, 4
 		la $a0, prompt		#syscall to output the declared string
 		syscall
@@ -13,12 +14,8 @@
 		syscall				#syscall to read in integers
 		
 		move $t0, $v0		#puts user input into a register
-		sw $t0, int_array	#stores integer at base address of the array
-		la $s0, int_array 		#loads first index into register
+		sw $t0, 0($s1)		#stores integer at base address of the array
 
-		li $v0, 1
-		move $a0, $t1
-		syscall
 		
 		#store this integer at the nth place of the array
 		#check that the integer is within the range of 0-32768

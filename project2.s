@@ -1,8 +1,12 @@
-.data		#variable declarations occur after this
-	prompt: 	.asciiz 	" Please enter a non-zero natural number less than 32,768: "
-	int_array:	.space 24	#space for 5 integers in an array
+.data		        #variable declarations occur after this
+	prompt: 	
+	.asciiz 	" Please enter a non-zero natural number less than 32,768: "
+	int_array:	
+	.space 24	#space for 5 integers in an array
+	
 	.globl main
-.text		#program execution follows this
+.text		        #program execution follows this
+
 	main:
 		la $s1, int_array	#loads array's space into a register
 		
@@ -14,7 +18,10 @@
 		syscall				#syscall to read in integers
 		
 		move $t0, $v0		#puts user input into a register
-		sw $t0, 0($s1)		#stores integer at base address of the array
+		slt $t1, $t0, $zero 	#comparing user input to zero.
+		bne $t1, $0, LOOP1  	#branch when above condition is **NOT FALSE**.
+		sw $t0, 0($s1) 		#storing input
+  		addi $s1, $s1, 1 	#incrementing [i] to move to next array element
 		
 		#check that it's within the range
 		

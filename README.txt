@@ -1,39 +1,26 @@
+README REQS: 
+a. Your team members' names, class, an explanation of how to run your program,
+a brief description of the pieces of your assignment, any notes from group
+discussions, and the workload distribution among the team (who did what).
+b. Test cases that you used to test your program. For each of the test cases,
+provide:
+i. A description of what is being tested
+ii. The input
+iii. The expected output
+iv. The actual output
+c. Any known problems of your program, which will help you earn partial
+credits.
+____________________________________________________________________________________________________________
 # Project2
 Andre Vincent, Modona Conteh
 CSCI201-01 | Dr. Gedare Bloom
 
-Assignment:
-(1) Print the following prompt message:
-Please enter a non-zero natural number less than 32,768:
-	After declaring a variable for the prompt string in our .data, we used a syscall to print that string out, prompting the user.
-
-(2) Read an integer from the user
-	Syscall "5" is used to read integers from the user. The input is stored into the $v0 register.
-	We then check that the integer is within the range of 0-32768. If it is, then we store it at the nth place of the array.
-
-(3) Repeat the above process (Step 1 and 2) five times.
-
-(4) Check whether or not all the five integers are larger than 0 and less than 32768. If not,
-repeat Steps 1 through 4.
-
-(5) Call a procedure (subprogram) that calculates the result of A + B / (C – D × E), where
-A, B, C, D and E are the five integers entered. The procedure should return the result.
-	The calculation subprogram does the following:
-		load the the parameters from the stack
-		multiply "D" by "E" and move that result into a register
-		# subtract the product of "D"and "E" from "C", store result in a register.
-		# add "A" and "B", store result in a register.
-		#divide sum of "A" and "B" by result of "C-(D*E)"
-		#return return result to the main.
-Use the appropriate MIPS calling conventions, and the usual order of operations. Note:
-you need to pass 5 values to the subprogram, but can only pass four of them using the
-argument registers. The fifth value must be passed using the stack!
-
-(6) Print the following message:
-A + B / (C – D × E) = X
-Where A, B, C, D and E should be replaced by the integers entered, and X is the value of the
-expression calculated at Step 5.
-
+This is the composition of the assignment:
+Reading in 5 user-inputted integers
+Checking to make sure the integers provided are in the range of (0, 32768)
+If any integer is not within range, prompt user to enter five integers once more.
+____________________________________________________________________________________________________________
+Remaining project items:
 (7) Return from main using jr $ra (not using the exit syscall). The jr should not cause
 an error, and if it does then your program is not using the stack properly.
 :Part 2 (15 points)

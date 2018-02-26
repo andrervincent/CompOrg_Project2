@@ -16,30 +16,47 @@
 	main:
 		la $s1, int_array		#loads array's space into a register
 		add $t2, $zero, $0		#i = 0
-
-		LOOP1:
-			li $v0, 4
-			la $a0, prompt		#syscall to output the declared string
-			syscall
+		jal LOOP1
+		la $s2, int_array		#sets the register's pointer to the base address of the array
 		
-			li $v0, 5
-			syscall				#syscall to read in integers
-			move $t0, $v0		#puts user input into a register
+		lw $a0, 0($s2)			#loads the integers into the argument registers
+		lw $a1, 4($s2)
+		lw $a2, 8($s2)
+		lw $a3, 12($s2)
+		
+		addi $s2, $s2, 4
+		addi $sp, $sp, -4		#stores the fifth integer in the stack
+		sw $s2, 0($sp)
+		jal CALCULATIONS
+		
+		li $v0, 10
+		syscall
+		
+		
+	LOOP1:
+		li $v0, 4
+		la $a0, prompt		#syscall to output the declared string
+		syscall
+		
+		li $v0, 5
+		syscall				#syscall to read in integers
+		move $t0, $v0		#puts user input into a register
 			
-			slt $t1, $t0, $zero 	#comparing user input to zero.
-			bne $t1, $0, LOOP1  	#branch when above condition is **NOT FALSE**.
-			#check that it's less than 32,768.
+		slt $t1, $t0, $zero 	#comparing user input to zero.
+		bne $t1, $0, LOOP1  	#branch when above condition is **NOT FALSE**.
+		#check that it's less than 32,768.
 			
-			sw $t0, 0($s1) 		#store this integer at the nth place of the array
-  			addi $s1, $s1, 4 	#incrementing [i] to move to next array element
-  			addi $t2, $t2, 1	#i++
-  			slti $t3, $t2, 5	#while (i < 5)
-  			bne $t3, $zero, LOOP1		#repeat for 4 more integers
+		sw $t0, 0($s1) 		#store this integer at the nth place of the array
+  		addi $s1, $s1, 4 	#incrementing [i] to move to next array element
+  		addi $t2, $t2, 1	#i++
+  		slti $t3, $t2, 5	#while (i < 5)
+  		bne $t3, $zero, LOOP1		#repeat for 4 more integers
+  		jr $ra
 		
   			
 		
 
-		CALCULATIONS:
+	CALCULATIONS:
 		#use $a0-$a3 and integer from stack as parameters 
 		mult $a3, $t4		#( D * E )
 		mflo $t5			#move from lo in to $t5
@@ -49,6 +66,7 @@
 		mfhi $t8			#stores remainder from higher 32 bits
 		mflo $t9			#stores quotient from lower 32 bits
 		
+		#Calculation Print
 		li $v0, 1
 		addi $a0, $a0, 0			#A
 		syscall
@@ -102,10 +120,7 @@
 		
 		li $v0, 1
 		addi $a1, $t9, 0			#X
-		
 		syscall
-		
-		
 		
 		jr $ra				#return arguments
 

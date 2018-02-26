@@ -20,9 +20,12 @@
 		la $s2, int_array		#sets the register's pointer to the base address of the array
 		
 		lw $a0, 0($s2)			#loads the integers into the argument registers
-		lw $a1, 4($s2)
-		lw $a2, 8($s2)
-		lw $a3, 12($s2)
+		addi $s2, $s2, 4
+		lw $a1, 0($s2)
+		addi $s2, $s2, 4
+		lw $a2, 0($s2)
+		addi $s2, $s2, 4
+		lw $a3, 0($s2)
 		
 		addi $s2, $s2, 4
 		addi $sp, $sp, -4		#stores the fifth integer in the stack
@@ -53,10 +56,9 @@
   		bne $t3, $zero, LOOP1		#repeat for 4 more integers
   		jr $ra
 		
-  			
-		
 
 	CALCULATIONS:
+		lw $t4, -8($sp)		#loads fifth integer from the stack
 		#use $a0-$a3 and integer from stack as parameters 
 		mult $a3, $t4		#( D * E )
 		mflo $t5			#move from lo in to $t5
@@ -75,8 +77,10 @@
 		la $a0, add_str				#+
 		syscall
 		
+		add $a0, $zero, $0
+		
 		li $v0, 1
-		addi $a1, $a1, 0			#B
+		addi $a0, $a1, 0			#B
 		syscall
 		
 		add $a0, $zero, $0			#clears registers to avoid adding numbers within syscall
@@ -92,8 +96,10 @@
 		addi $a0, $a2, 0			#C
 		syscall
 		
+		add $a0, $zero, $0			#clear
+		
 		li $v0, 4
-		la $a1, sub_str				#-
+		la $a0, sub_str				#-
 		syscall
 		
 		add $a0, $zero, $0
@@ -102,8 +108,10 @@
 		addi $a0, $a3, 0			#D
 		syscall
 		
+		add $a0, $zero, $0
+		
 		li $v0, 4
-		la $a1, mult_str			#*
+		la $a0, mult_str			#*
 		syscall
 		
 		add $a0, $a0, $zero
@@ -116,7 +124,8 @@
 		la $a0, equal_str			#=
 		syscall
 		
-		add $a1, $a1, $zero
+		add $a0, $zero, $0
+		add $a1, $zero, $0
 		
 		li $v0, 1
 		addi $a1, $t9, 0			#X

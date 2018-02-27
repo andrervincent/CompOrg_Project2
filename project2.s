@@ -39,6 +39,8 @@
 		
 		jr $ra
 		
+		add $s5, $zero, $0	#j = 0
+
 		
 	LOOP1:
 		li $v0, 4
@@ -52,8 +54,14 @@
 		slt $t1, $t0, $zero 	#comparing user input to zero. 
 		bne $t1, $0, LOOP1  	#branch when above condition is **NOT FALSE**.
 		
-		#slti $t1, $t0, 32768	#if the number is not less than 32,768, start the loop again
-		#beq $t1, $0, LOOP1
+		addi $s4, $zero, 16384
+		add  $s4, $s4, $s4
+		slt  $s6, $t0, $s4
+		beq  $s6, $0, LOOP1
+
+		addi $s5, $s5, 1 #j++
+		slti $t4, $s5, 6	#if j is less than 6
+		beq $t4, $zero, EXIT
 			
 		sw $t0, 0($s1) 		#store this integer at the nth place of the array
   		addi $s1, $s1, 4 	#incrementing [i] to move to next array element
@@ -140,3 +148,6 @@
 		
 		jr $ra				#return arguments
 
+EXIT:
+		li $v0, 10
+		syscall

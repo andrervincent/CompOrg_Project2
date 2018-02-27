@@ -65,6 +65,7 @@
 
 	CALCULATIONS:
 		lw $t4, 4($sp)		#loads fifth integer from the stack
+		
 		#use $a0-$a3 and integer from stack as parameters 
 		mult $a3, $t4		#( D * E )
 		mflo $t5			#move from lo in to $t5
@@ -134,7 +135,7 @@
 		add $a1, $zero, $0
 		
 		li $v0, 1
-		addi $a1, $t9, 0			#X
+		addi $a0, $t9, 0			#X
 		syscall
 		
 		jr $ra				#return arguments

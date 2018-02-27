@@ -14,6 +14,9 @@
 .text		        #program execution follows this
 
 	main:
+		addi $sp, $sp -8		#save main's return address on the stack
+		sw $ra, 0($sp)
+		
 		la $s1, int_array		#loads array's space into a register
 		add $t2, $zero, $0		#i = 0
 		jal LOOP1
@@ -28,12 +31,13 @@
 		lw $a3, 0($s2)
 		
 		addi $s2, $s2, 4
-		addi $sp, $sp, -4		#stores the fifth integer in the stack
-		sw $s2, 0($sp)
+		
+		lw $s3, 0($s2)		#save last number on stack
+		sw $s3, 4($sp)
+		
 		jal CALCULATIONS
 		
-		li $v0, 10
-		syscall
+		jr $ra
 		
 		
 	LOOP1:
@@ -45,9 +49,11 @@
 		syscall				#syscall to read in integers
 		move $t0, $v0		#puts user input into a register
 			
-		slt $t1, $t0, $zero 	#comparing user input to zero.
+		slt $t1, $t0, $zero 	#comparing user input to zero. 
 		bne $t1, $0, LOOP1  	#branch when above condition is **NOT FALSE**.
-		#check that it's less than 32,768.
+		
+		#slti $t1, $t0, 32768	#if the number is not less than 32,768, start the loop again
+		#beq $t1, $0, LOOP1
 			
 		sw $t0, 0($s1) 		#store this integer at the nth place of the array
   		addi $s1, $s1, 4 	#incrementing [i] to move to next array element
@@ -58,7 +64,7 @@
 		
 
 	CALCULATIONS:
-		lw $t4, -8($sp)		#loads fifth integer from the stack
+		lw $t4, 4($sp)		#loads fifth integer from the stack
 		#use $a0-$a3 and integer from stack as parameters 
 		mult $a3, $t4		#( D * E )
 		mflo $t5			#move from lo in to $t5

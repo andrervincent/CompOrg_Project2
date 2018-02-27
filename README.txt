@@ -43,3 +43,6 @@ ________________________________________________________________________________
 Test Cases:
 	1. Too many wrong inputs:
 		In the case that the user inputs numbers greater than the limit - 32,768 - the loop will continue infinitely. To combat this, we added a second counter to count the amount of times the user inputs a number. If that number exceeds 5, or the amount of indexes available in the array, the loop and program exits.
+
+	2. Different integers:
+		There are many integers that can be entered, but because we are only recording and showing the quotient, if the numerator is not divisible by the numerator, the quotient will be zero. To avoid this, it is best to input numbers such that C > (D * E).

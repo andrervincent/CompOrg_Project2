@@ -38,8 +38,6 @@
 		jal CALCULATIONS
 		
 		jr $ra
-		
-		add $s5, $zero, $0	#j = 0
 
 		
 	LOOP1:
